@@ -1,10 +1,6 @@
 public class HangmanGame {
 	
-	private String word = "";
-	private int numLetters = 0;
-	
 	public HangmanGame() {
-		
 	}
 	
 	//checks if word valid (all letters)
@@ -19,8 +15,15 @@ public class HangmanGame {
 				return false;
 			}
 		}
-		
+
 		return true;
+	}
+	
+	//counts number of letters in word once validated
+	//returns number of letters in word
+	public int countsLetters(String word) {
+		int numLetters = word.length();
+		return numLetters;
 	}
 
 }
