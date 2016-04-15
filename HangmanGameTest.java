@@ -20,10 +20,17 @@ public class HangmanGameTest {
 	}
 	
 	@Test
+	public void checkWordEmpty() {
+		HangmanGame h = new HangmanGame();
+		String word = "";
+		assertFalse(h.checkWord(word));
+	}
+	
+	@Test
 	public void testLetterCountCorrect() {
 		HangmanGame h = new HangmanGame();
 		String word = "desklamp";	//this word has 8 letters
-		int numLetters = h.countsLetters(word);
+		int numLetters = h.countLetters(word);
 		assertEquals(8, numLetters);
 		
 	}
@@ -32,8 +39,23 @@ public class HangmanGameTest {
 	public void testLetterCountIncorrect() {
 		HangmanGame h = new HangmanGame();
 		String word = "desklamp";	//this word has 8 letters
-		int numLetters = h.countsLetters(word);
+		int numLetters = h.countLetters(word);
 		assertFalse(numLetters != 8);
 	}
+	
+	@Test
+	public void testPrintBlanksCorrect() {
+		HangmanGame h = new HangmanGame();
+		int numLetters = 6;
+		assertEquals(h.printBlanks(numLetters), "_ _ _ _ _ _ ");
+	}
+	
+	@Test
+	public void testPrintBlanksZero() {
+		HangmanGame h = new HangmanGame();
+		assertEquals(h.printBlanks(0), "");
+	}
+	
+	
 
 }
