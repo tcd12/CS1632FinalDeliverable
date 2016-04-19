@@ -19,6 +19,9 @@ public class RunGame {
 			word = keyboard.next();
 		}
 		
+		//clears screen so word becomes hidden
+		System.out.print("\033[H\033[2J");
+		
 		int numLetters = h.countLetters(word);
 		//prints blanks
 		System.out.print("\n");
@@ -44,6 +47,8 @@ public class RunGame {
 				if (!winGame) {
 					wrongGuesses += 1;
 				}
+				else
+					break;
 			}
 			else if (guessCategory.equals("letter")) {
 				//call checkLetterGuess(guess, letterArray)
@@ -51,8 +56,14 @@ public class RunGame {
 				if (letter == '0') {
 					wrongGuesses += 1;
 				}
-				else
+				else {
+					char[] oldLetterArray = letterArray;
 					letterArray = h.updateWordArray(letter, word, letterArray);
+					if (h.checkIfAlreadyThere(oldLetterArray, letterArray)) {
+						System.out.println("You already found that letter! Minus one guess.");
+						wrongGuesses += 1;
+					}
+				}
 			}
 			else if (guessCategory.equals("error")) {
 				continue;
@@ -77,7 +88,7 @@ public class RunGame {
 		}
 
 		if (winGame){
-			System.out.println("Congratulations! You correctly guessed the word!");
+			System.out.println("\nCongratulations! You correctly guessed the word!");
 			System.out.println("Thanks for playing!");
 		}
 		

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class HangmanGame {
 	
 	public HangmanGame() {
@@ -57,6 +59,12 @@ public class HangmanGame {
 		
 		//else if first char != '#', check if letter
 		else {
+			
+			if (guess.length() > 1) {
+				System.out.println("\nSorry, please enter a word guess after the '#' symbol, or guess a single letter!");
+				return "error";
+			}
+			
 			char c = firstChar.charAt(0);
 			//if not letter, return "error"
 			if (!((c >= 65) && (c <= 90)) && !((c >= 97) && (c <= 122))) {
@@ -79,7 +87,7 @@ public class HangmanGame {
 		guess = guess.substring(1);
 		
 		if (guess.equals(word)) {
-			System.out.println("You guessed it!");
+			System.out.println("\nYou guessed it!");
 			return true;
 		}
 		else {
@@ -112,13 +120,25 @@ public class HangmanGame {
 			return letterArray;
 		}
 		
+		char[] newLetterArray = new char[letterArray.length];
+		newLetterArray = Arrays.copyOf(letterArray, letterArray.length);
+		
 		for (int i = 0; i < letterArray.length; i++) {
 			if (word.charAt(i) == guess) {
-				letterArray[i] = guess;
+				newLetterArray[i] = guess;
 			}
 		}
-		return letterArray;
+		return newLetterArray;
 	}
+	
+	//compares array before update to after, check if change
+	public boolean checkIfAlreadyThere(char[] oldLetterArray, char[] updatedLetterArray) {
+		if ((oldLetterArray == null) || (updatedLetterArray == null)) {
+			System.out.println("An error has occurred.");
+			return false;
+		}
+		return Arrays.equals(oldLetterArray, updatedLetterArray);
+	} 
 	
 	public boolean winGame(char[] letterArray) {
 		if (letterArray == null) {
@@ -139,12 +159,8 @@ public class HangmanGame {
 	}
 	
 	public String drawFigure(int wrongGuesses) {
-		if ((wrongGuesses < 0) || (wrongGuesses == Integer.MAX_VALUE)) {
-			System.out.println("An error has occurred.");
-			return "error";
-		}
-		
-		else if (wrongGuesses > 6) {
+
+		if (wrongGuesses > 6) {
 			System.out.println("Max number of possible guesses has been exceeded! You lose!");
 			return "error";
 		}
@@ -165,6 +181,7 @@ public class HangmanGame {
 				case 6:
 					return " ____\n |   O\n |  /|\\\n_|_ / \\\n";
 				default:
+					System.out.println("An error has occurred.");
 					return "error";
 			}
 		}

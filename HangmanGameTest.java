@@ -63,6 +63,37 @@ public class HangmanGameTest {
 		assertFalse(numLetters != 8);
 	}
 	
+	//shows countsLetter() can still handle long words
+	@Test
+	public void testLetterCountLongWord() {
+		HangmanGame h = new HangmanGame();
+		StringBuilder longWord = new StringBuilder();
+		
+		for (int i = 0; i < 100; i++) {
+			longWord.append("a");
+		}
+		
+		String word = longWord.toString();
+		int numLetters = h.countLetters(word);
+		assertEquals(numLetters, word.length());
+	}
+	
+	//shows countsLetter() can handle as long words as memory allows
+		@Test
+		public void testLetterCountHundredMill() {
+			HangmanGame h = new HangmanGame();
+			StringBuilder longWord = new StringBuilder();
+			
+			//100million
+			for (int i = 0; i < 100000000; i++) {
+				longWord.append("a");
+			}
+			
+			String word = longWord.toString();
+			int numLetters = h.countLetters(word);
+			assertEquals(numLetters, word.length());
+		} 
+	
 	//tests word length of zero
 	@Test
 	public void testLetterCountZero() {
@@ -142,6 +173,13 @@ public class HangmanGameTest {
 	public void testCategorizeGuessError() {
 		HangmanGame h = new HangmanGame();
 		String guess = "$";
+		assertEquals(h.categorizeGuess(guess), "error");
+	}
+	
+	@Test
+	public void testCategorizeStringGuess() {
+		HangmanGame h = new HangmanGame();
+		String guess = "1234536";
 		assertEquals(h.categorizeGuess(guess), "error");
 	}
 	
@@ -344,6 +382,64 @@ public class HangmanGameTest {
 		assertEquals(updatedArray[0],'_');
 	}
 
+	@Test
+	public void testIfLetterThere() {
+		HangmanGame h = new HangmanGame();
+		char[] letterArray = {'h', 'e', 'l', 'l', '_'};
+		char guess = 'h';
+		String word = "hello";
+		char[] updatedLetterArray = h.updateWordArray(guess, word, letterArray);
+		
+		for (int i = 0; i < letterArray.length; i++) {
+			System.out.println(letterArray[i] + " (old) vs. " + updatedLetterArray[i]);
+		}
+		
+		assertTrue(h.checkIfAlreadyThere(letterArray, updatedLetterArray));
+	}
+	
+	@Test
+	public void testIfLetterNotThere() {
+		HangmanGame h = new HangmanGame();
+		char[] oldLetterArray = {'h', 'e', 'l', 'l', '_'};
+		char guess = 'o';
+		String word = "hello";
+		char[] updatedLetterArray = h.updateWordArray(guess, word, oldLetterArray);
+		
+		for (int i = 0; i < oldLetterArray.length; i++) {
+			System.out.println(oldLetterArray[i] + " (old) vs. " + updatedLetterArray[i]);
+		}	
+		assertFalse(h.checkIfAlreadyThere(oldLetterArray, updatedLetterArray));
+	}
+	
+	@Test
+	public void testIfLetterThereNullArray() {
+		HangmanGame h = new HangmanGame();
+		char[] oldLetterArray = null;
+		char guess = 'o';
+		String word = "hello";
+		char[] updatedLetterArray = h.updateWordArray(guess, word, oldLetterArray);
+	
+		assertFalse(h.checkIfAlreadyThere(oldLetterArray, updatedLetterArray));
+	}
+	
+	@Test
+	public void testIfLetterThereArrayNull() {
+		HangmanGame h = new HangmanGame();
+		char[] oldLetterArray = {'h', 'e', 'l', 'l', '_'};
+		char[] updatedLetterArray = null;
+	
+		assertFalse(h.checkIfAlreadyThere(oldLetterArray, updatedLetterArray));
+	}
+	
+	@Test
+	public void testIfLetterThereBothArraysNull() {
+		HangmanGame h = new HangmanGame();
+		char[] oldLetterArray = null;
+		char[] updatedLetterArray = null;
+	
+		assertFalse(h.checkIfAlreadyThere(oldLetterArray, updatedLetterArray));
+	}
+	
 	@Test
 	public void testWinGameTrue(){
 		HangmanGame h = new HangmanGame();
