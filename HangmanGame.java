@@ -30,13 +30,17 @@ public class HangmanGame {
 		return numLetters;
 	}
 	
-	public String printBlanks(int numLetters) {
-		String blanks = "";
-		for (int i = 0; i < numLetters; i++) {
-			blanks += "_ ";
+	//creates array of letters to print, initializes to blanks
+	public char[] initializeWord(int numLetters) {
+		if ((numLetters == Integer.MAX_VALUE) || (numLetters < 0)) {
+			System.out.println("Error: invalid word length");
+			return new char[0];
 		}
-		
-		return blanks;
+		char[] word = new char[numLetters];
+		for (int i = 0; i < numLetters; i++) {
+			word[i] = '_';
+		}
+		return word;
 	}
 
 }
