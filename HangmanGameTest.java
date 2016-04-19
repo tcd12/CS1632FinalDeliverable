@@ -20,9 +20,30 @@ public class HangmanGameTest {
 	}
 	
 	@Test
+	public void checkWordNullTest() {
+		HangmanGame h = new HangmanGame();
+		String word = null;
+		assertFalse(h.checkWord(word));
+	}
+	
+	@Test
 	public void checkWordEmpty() {
 		HangmanGame h = new HangmanGame();
 		String word = "";
+		assertFalse(h.checkWord(word));
+	}
+	
+	@Test
+	public void checkWordGreaterThanLetterTest() {
+		HangmanGame h = new HangmanGame();
+		String word = "{|}";
+		assertFalse(h.checkWord(word));
+	}
+	
+	@Test
+	public void checkWordBetweenCasesNotLetterTest() {
+		HangmanGame h = new HangmanGame();
+		String word = "ab[/]ab";
 		assertFalse(h.checkWord(word));
 	}
 	
@@ -123,6 +144,44 @@ public class HangmanGameTest {
 		String guess = "$";
 		assertEquals(h.categorizeGuess(guess), "error");
 	}
+	
+	//tests null string argument returns error
+	@Test
+	public void testCategorizeGuessNull() {
+		HangmanGame h = new HangmanGame();
+		String guess = null;
+		assertEquals(h.categorizeGuess(guess), "error");
+	}
 
-
+	@Test
+	public void testWordCorrect() {
+		HangmanGame h = new HangmanGame();
+		String guess = "#hello";
+		String word = "hello";
+		assertTrue(h.isWordGuessCorrect(guess, word));
+	}
+	
+	@Test
+	public void testWordIncorrect() {
+		HangmanGame h = new HangmanGame();
+		String guess = "yellow";
+		String word = "hello";
+		assertFalse(h.isWordGuessCorrect(guess, word));
+	}
+	
+	@Test
+	public void testWordCorrectWithGuessNull() {
+		HangmanGame h = new HangmanGame();
+		String guess = null;
+		String word = "hello";
+		assertFalse(h.isWordGuessCorrect(guess, word));
+	}
+	
+	@Test
+	public void testWordCorrectWithWordNull() {
+		HangmanGame h = new HangmanGame();
+		String guess = "yellow";
+		String word = null;
+		assertFalse(h.isWordGuessCorrect(guess, word));
+	}
 }

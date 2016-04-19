@@ -44,6 +44,12 @@ public class HangmanGame {
 	
 	//categorizes guess as word or letter
 	public String categorizeGuess(String guess) {
+		//if guess is null, return error
+		if (guess == null) {
+			System.out.println("Error: invalid guess");
+			return "error";
+		}
+		
 		//if first char = '#', return "word"
 		String firstChar = guess.substring(0, 1);
 		if (firstChar.equals("#"))
@@ -54,6 +60,7 @@ public class HangmanGame {
 			char c = firstChar.charAt(0);
 			//if not letter, return "error"
 			if (!((c >= 65) && (c <= 90)) && !((c >= 97) && (c <= 122))) {
+				System.out.println("Error: invalid guess");
 				return "error";
 			}
 			//else, return "letter"
@@ -62,7 +69,24 @@ public class HangmanGame {
 		}
 	}
 	
-	public boolean wholeWordMatch(String guessWord);
+	//returns if word guess is correct or not
+	public boolean isWordGuessCorrect(String guess, String word) {
+		if ((guess == null) || (word == null)) {
+			System.out.println("An error has occurred.");
+			return false;
+		}
+		
+		guess = guess.substring(1);
+		
+		if (guess.equals(word)) {
+			System.out.println("You guessed it!");
+			return true;
+		}
+		else {
+			System.out.println("Sorry, your guess doesn't match the word!");
+			return false;
+		}
+	}
 	
 	
 

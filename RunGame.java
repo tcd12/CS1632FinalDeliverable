@@ -2,8 +2,9 @@ import java.util.Scanner;
 
 public class RunGame {
 	
-	public HangmanGame h = new HangmanGame();
-	public String word;
+	private HangmanGame h = new HangmanGame();
+	private String word;
+	private boolean winGame = false; 
 	
 	public void start() {
 		Scanner keyboard = new Scanner(System.in);
@@ -25,11 +26,23 @@ public class RunGame {
 		for (int i = 0; i < numLetters; i++) {
 			System.out.print(blanks[i] + " ");
 		}
-		
-		System.out.println("Enter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
-		String guess = keyboard.next();
-		
-		
+		while (!winGame) {
+			System.out.println("Enter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
+			String guess = keyboard.next();
+			
+			String guessCategory = h.categorizeGuess(guess);
+			if (guessCategory.equals("word")) {
+				winGame = h.isWordGuessCorrect(guess, word);
+			}
+			else if (guessCategory.equals("letter")) {
+				//call checkLetterGuess(guess)
+			}
+			else if (guessCategory.equals("error")) {
+				continue;
+			}
+			
+			//print out new figure
+		}
 		
 		keyboard.close();
 	}
