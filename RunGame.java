@@ -21,15 +21,19 @@ public class RunGame {
 		
 		int numLetters = h.countLetters(word);
 		//prints blanks
-		System.out.print("\n\n");
+		System.out.print("\n");
 		
-		char[] letterArray = h.initializeWord(numLetters);
+		//print out current hangman (initial board)
+		System.out.println(h.drawFigure(0));
+		
+		letterArray = h.initializeWord(numLetters);
 	
 		for (int i = 0; i < numLetters; i++) {
 			System.out.print(letterArray[i] + " ");
 		}
 		while (!winGame) {
-			System.out.println("Enter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
+			System.out.println("\n\nGuesses remaining: " + (6 - wrongGuesses));
+			System.out.print("\nEnter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
 			String guess = keyboard.next();
 			
 			guess = guess.toLowerCase();
@@ -43,19 +47,41 @@ public class RunGame {
 			}
 			else if (guessCategory.equals("letter")) {
 				//call checkLetterGuess(guess, letterArray)
-				boolean rightLetter = h.doesWordContainLetter(guess, word);
-				if (!rightLetter) {
+				 char letter = h.doesWordContainLetter(guess, word);
+				if (letter == '0') {
 					wrongGuesses += 1;
 				}
+				else
+					letterArray = h.updateWordArray(letter, word, letterArray);
 			}
 			else if (guessCategory.equals("error")) {
 				continue;
 			}
 			
-			//print out new figure
-			h.drawFigure(wrongGuesses);
+			//print out potentially-new figure
+			System.out.println(h.drawFigure(wrongGuesses));
+			
+			//print out currently-filled in word
+			for (int i = 0; i < letterArray.length; i++) {
+				System.out.print(letterArray[i] + " ");
+			}
+			
+			if (h.winGame(letterArray))
+				winGame = true;
+			
+			if (wrongGuesses >= 6) {
+				System.out.println("You ran out of guesses! You lose!");
+				System.out.println("The word to guess was: " + word);
+				break;
+			}
+		}
+
+		if (winGame){
+			System.out.println("Congratulations! You correctly guessed the word!");
+			System.out.println("Thanks for playing!");
 		}
 		
 		keyboard.close();
+		System.exit(0);
 	}
 }

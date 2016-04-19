@@ -190,7 +190,7 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		String guess = "h";
 		String word = "hello";
-		assertTrue(h.doesWordContainLetter(guess, word));
+		assertEquals(h.doesWordContainLetter(guess, word), 'h');
 	}
 	
 	@Test
@@ -198,7 +198,7 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		String guess = "q";
 		String word = "hello";
-		assertFalse(h.doesWordContainLetter(guess, word));
+		assertEquals(h.doesWordContainLetter(guess, word), '0');
 	}
 	
 	@Test
@@ -206,7 +206,7 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		String guess = null;
 		String word = "hello";
-		assertFalse(h.doesWordContainLetter(guess, word));
+		assertEquals(h.doesWordContainLetter(guess, word), '0');
 	}
 	
 	@Test
@@ -214,7 +214,7 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		String guess = "h";
 		String word = null;
-		assertFalse(h.doesWordContainLetter(guess, word));
+		assertEquals(h.doesWordContainLetter(guess, word), '0');
 	}
 	
 	@Test
@@ -222,7 +222,7 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		String guess = "?";
 		String word = "hello";
-		assertFalse(h.doesWordContainLetter(guess, word));
+		assertEquals(h.doesWordContainLetter(guess, word), '0');
 	}
 
 	@Test
@@ -301,5 +301,70 @@ public class HangmanGameTest {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 10;
 		assertEquals(h.drawFigure(numGuesses), "error");
+	}
+
+	@Test
+	public void testUpdateWordArray() {
+		HangmanGame h = new HangmanGame();
+		char guess = 'h';
+		String word = "hello";
+		char[] letterArray = {'_', '_', '_', '_', '_'};
+		char[] updatedArray = h.updateWordArray(guess, word, letterArray);
+		assertEquals(updatedArray[0],'h');
+		assertEquals(updatedArray[1], '_');
+	}
+	
+	@Test
+	public void testUpdateWordArrayNoMatch() {
+	HangmanGame h = new HangmanGame();
+	char guess = 't';
+	String word = "hello";
+	char[] letterArray = {'_', '_', '_', '_', '_'};
+	char[] updatedArray = h.updateWordArray(guess, word, letterArray);
+	assertEquals(updatedArray[0],'_');
+	}
+	
+	@Test
+	public void testUpdateWordArrayNullArray() {
+		HangmanGame h = new HangmanGame();
+		char guess = 'h';
+		String word = "hello";
+		char[] letterArray = null;
+		char[] updatedArray = h.updateWordArray(guess, word, letterArray);
+		assertEquals(updatedArray, null);
+	}
+	
+	@Test
+	public void testUpdateWordArrayNull() {
+		HangmanGame h = new HangmanGame();
+		char guess = '\u0000';
+		String word = "hello";
+		char[] letterArray = {'_', '_', '_', '_', '_'};
+		char[] updatedArray = h.updateWordArray(guess, word, letterArray);
+		assertEquals(updatedArray[0],'_');
+	}
+
+	@Test
+	public void testWinGameTrue(){
+		HangmanGame h = new HangmanGame();
+		char[] letterArray = {'h', 'e', 'l', 'l', 'o'};
+		boolean win = h.winGame(letterArray);
+		assertTrue(win);
+	}
+	
+	@Test
+	public void testWinGameFalse(){
+		HangmanGame h = new HangmanGame();
+		char[] letterArray = {'h', '_', 'l', 'l', '_'};
+		boolean win = h.winGame(letterArray);
+		assertFalse(win);
+	}
+	
+	@Test
+	public void testWinGameArrayNull(){
+		HangmanGame h = new HangmanGame();
+		char[] letterArray = null;
+		boolean win = h.winGame(letterArray);
+		assertFalse(win);
 	}
 }

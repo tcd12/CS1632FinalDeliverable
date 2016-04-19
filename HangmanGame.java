@@ -88,27 +88,54 @@ public class HangmanGame {
 		}
 	}
 	
-	public boolean doesWordContainLetter(String guess, String word) {
+	public char doesWordContainLetter(String guess, String word) {
 		if ((guess == null) || (word == null)) {
 			System.out.println("An error has occurred.");
-			return false;
+			return '0';
 		}
 		
 		char letter = Character.toLowerCase(guess.charAt(0));
 		
 		for (int i = 0; i < word.length(); i++) {
 			if (letter == word.charAt(i)) {
-				return true;
+				return letter;
 			}
 		}
 		
-		return false;
+		return '0';
 	}
 	
 	
-	public String wordArrayToPrint(char[] letterArray) {
+	public char[] updateWordArray(char guess, String word, char[] letterArray) {
+		if ((guess == '\u0000') || (letterArray == null)) {
+			System.out.println("An error has occurred.");
+			return letterArray;
+		}
 		
-		return "error";
+		for (int i = 0; i < letterArray.length; i++) {
+			if (word.charAt(i) == guess) {
+				letterArray[i] = guess;
+			}
+		}
+		return letterArray;
+	}
+	
+	public boolean winGame(char[] letterArray) {
+		if (letterArray == null) {
+			return false;
+		}
+		
+		int blanks = 0;
+		for (int i = 0; i < letterArray.length; i++) {
+			if (letterArray[i] == '_') {
+				blanks++;
+			}
+		}
+		if (blanks == 0) {
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public String drawFigure(int wrongGuesses) {
