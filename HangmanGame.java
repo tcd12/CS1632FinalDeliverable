@@ -19,7 +19,6 @@ public class HangmanGame {
 				return false;
 			}
 		}
-
 		return true;
 	}
 	
@@ -42,5 +41,29 @@ public class HangmanGame {
 		}
 		return word;
 	}
+	
+	//categorizes guess as word or letter
+	public String categorizeGuess(String guess) {
+		//if first char = '#', return "word"
+		String firstChar = guess.substring(0, 1);
+		if (firstChar.equals("#"))
+			return "word";
+		
+		//else if first char != '#', check if letter
+		else {
+			char c = firstChar.charAt(0);
+			//if not letter, return "error"
+			if (!((c >= 65) && (c <= 90)) && !((c >= 97) && (c <= 122))) {
+				return "error";
+			}
+			//else, return "letter"
+			else
+				return "letter";
+		}
+	}
+	
+	public boolean wholeWordMatch(String guessWord);
+	
+	
 
 }

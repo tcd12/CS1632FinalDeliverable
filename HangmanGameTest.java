@@ -92,6 +92,37 @@ public class HangmanGameTest {
 		assertEquals(word.length, 0);
 	}
 	
+	//test categorization of word guess
+	@Test
+	public void testCategorizeGuessWord() {
+		HangmanGame h = new HangmanGame();
+		String guess = "#hello";
+		assertEquals(h.categorizeGuess(guess), "word");
+	}
 	
+	//test categorization of lowercase letter guess
+	@Test
+	public void testCategorizeGuessLowercaseLetter() {
+		HangmanGame h = new HangmanGame();
+		String guess = "h";
+		assertEquals(h.categorizeGuess(guess), "letter");
+	}
+	
+	//test categorization of uppercase letter guess
+		@Test
+	public void testCategorizeGuessUppercaseLetter() {
+		HangmanGame h = new HangmanGame();
+		String guess = "H";
+		assertEquals(h.categorizeGuess(guess), "letter");
+	}
+	
+	//test categorization of non-letter
+	@Test
+	public void testCategorizeGuessError() {
+		HangmanGame h = new HangmanGame();
+		String guess = "$";
+		assertEquals(h.categorizeGuess(guess), "error");
+	}
+
 
 }
