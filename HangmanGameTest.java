@@ -224,4 +224,82 @@ public class HangmanGameTest {
 		String word = "hello";
 		assertFalse(h.doesWordContainLetter(guess, word));
 	}
+
+	@Test
+	public void testDrawFigureZero() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 0;
+		assertEquals(h.drawFigure(numGuesses), "\n\n\n");
+	}
+	
+	@Test
+	public void testDrawFigureOne() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 1;
+		assertEquals(h.drawFigure(numGuesses), " O\n\n");
+	}
+	
+	@Test
+	public void testDrawFigureTwo() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 2;
+		assertEquals(h.drawFigure(numGuesses), " O\n |\n");
+	}
+	
+	@Test
+	public void testDrawFigureThree() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 3;
+		assertEquals(h.drawFigure(numGuesses), " O\n/|\n");
+	}
+	
+	@Test
+	public void testDrawFigureFour() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 4;
+		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n");
+	}
+	
+	@Test
+	public void testDrawFigureFive() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 5;
+		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n/");
+	}
+	
+	@Test
+	public void testDrawFigureSix() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 6;
+		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n/\\");
+	}
+
+	//testing boundary value of 7 (6 should be max possible guesses)
+	@Test
+	public void testDrawFigureSeven() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 7;
+		assertEquals(h.drawFigure(numGuesses), "error");
+	}
+	
+	@Test
+	public void testDrawFigureNegative() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = -1;
+		assertEquals(h.drawFigure(numGuesses), "error");
+	}
+	
+	@Test
+	public void testDrawFigureMaxInt() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = Integer.MAX_VALUE;
+		assertEquals(h.drawFigure(numGuesses), "error");
+	}
+	
+	@Test
+	public void testDrawFigureGreaterThanSixGuesses() {
+		HangmanGame h = new HangmanGame();
+		int numGuesses = 10;
+		assertEquals(h.drawFigure(numGuesses), "error");
+	}
 }

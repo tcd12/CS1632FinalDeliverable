@@ -32,6 +32,8 @@ public class RunGame {
 			System.out.println("Enter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
 			String guess = keyboard.next();
 			
+			guess = guess.toLowerCase();
+			
 			String guessCategory = h.categorizeGuess(guess);
 			if (guessCategory.equals("word")) {
 				winGame = h.isWordGuessCorrect(guess, word);

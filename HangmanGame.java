@@ -94,7 +94,7 @@ public class HangmanGame {
 			return false;
 		}
 		
-		char letter = guess.charAt(0);
+		char letter = Character.toLowerCase(guess.charAt(0));
 		
 		for (int i = 0; i < word.length(); i++) {
 			if (letter == word.charAt(i)) {
@@ -105,14 +105,42 @@ public class HangmanGame {
 		return false;
 	}
 	
-	public String drawFigure(int wrongGuesses) {
-		return "error";
-	}
 	
 	public String wordArrayToPrint(char[] letterArray) {
 		return "error";
 	}
 	
+	public String drawFigure(int wrongGuesses) {
+		if ((wrongGuesses < 0) || (wrongGuesses == Integer.MAX_VALUE)) {
+			System.out.println("An error has occurred.");
+			return "error";
+		}
+		
+		else if (wrongGuesses > 6) {
+			System.out.println("Max number of possible guesses has been exceeded! You lose!");
+			return "error";
+		}
+		else {
+			switch (wrongGuesses) {
+				case 0:
+					return "\n\n\n";
+				case 1:
+					return " O\n\n";
+				case 2:
+					return " O\n |\n";	
+				case 3:
+					return " O\n/|\n";
+				case 4:
+					return " O\n/|\\\n";
+				case 5:
+					return " O\n/|\\\n/";
+				case 6:
+					return " O\n/|\\\n/\\";
+				default:
+					return "error";
+			}
+		}
+	}
 	
 
 }
