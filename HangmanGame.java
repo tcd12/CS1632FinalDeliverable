@@ -88,6 +88,31 @@ public class HangmanGame {
 		}
 	}
 	
+	public boolean doesWordContainLetter(String guess, String word) {
+		if ((guess == null) || (word == null)) {
+			System.out.println("An error has occurred.");
+			return false;
+		}
+		
+		char letter = guess.charAt(0);
+		
+		for (int i = 0; i < word.length(); i++) {
+			if (letter == word.charAt(i)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	public String drawFigure(int wrongGuesses) {
+		return "error";
+	}
+	
+	public String wordArrayToPrint(char[] letterArray) {
+		return "error";
+	}
+	
 	
 
 }

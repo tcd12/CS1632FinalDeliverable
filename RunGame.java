@@ -5,6 +5,8 @@ public class RunGame {
 	private HangmanGame h = new HangmanGame();
 	private String word;
 	private boolean winGame = false; 
+	private char[] letterArray;
+	private int wrongGuesses = 0;
 	
 	public void start() {
 		Scanner keyboard = new Scanner(System.in);
@@ -21,10 +23,10 @@ public class RunGame {
 		//prints blanks
 		System.out.print("\n\n");
 		
-		char[] blanks = h.initializeWord(numLetters);
+		char[] letterArray = h.initializeWord(numLetters);
 	
 		for (int i = 0; i < numLetters; i++) {
-			System.out.print(blanks[i] + " ");
+			System.out.print(letterArray[i] + " ");
 		}
 		while (!winGame) {
 			System.out.println("Enter a letter to guess, or enter '#' followed by the word you'd like to guess: ");
@@ -33,15 +35,23 @@ public class RunGame {
 			String guessCategory = h.categorizeGuess(guess);
 			if (guessCategory.equals("word")) {
 				winGame = h.isWordGuessCorrect(guess, word);
+				if (!winGame) {
+					wrongGuesses += 1;
+				}
 			}
 			else if (guessCategory.equals("letter")) {
-				//call checkLetterGuess(guess)
+				//call checkLetterGuess(guess, letterArray)
+				boolean rightLetter = h.doesWordContainLetter(guess, word);
+				if (!rightLetter) {
+					wrongGuesses += 1;
+				}
 			}
 			else if (guessCategory.equals("error")) {
 				continue;
 			}
 			
 			//print out new figure
+			h.drawFigure(wrongGuesses);
 		}
 		
 		keyboard.close();

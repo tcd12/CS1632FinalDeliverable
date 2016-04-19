@@ -184,4 +184,44 @@ public class HangmanGameTest {
 		String word = null;
 		assertFalse(h.isWordGuessCorrect(guess, word));
 	}
+
+	@Test
+	public void testWordContainLetter() {
+		HangmanGame h = new HangmanGame();
+		String guess = "h";
+		String word = "hello";
+		assertTrue(h.doesWordContainLetter(guess, word));
+	}
+	
+	@Test
+	public void testWordNotContainLetter() {
+		HangmanGame h = new HangmanGame();
+		String guess = "q";
+		String word = "hello";
+		assertFalse(h.doesWordContainLetter(guess, word));
+	}
+	
+	@Test
+	public void testWordContainLetterGuessNull() {
+		HangmanGame h = new HangmanGame();
+		String guess = null;
+		String word = "hello";
+		assertFalse(h.doesWordContainLetter(guess, word));
+	}
+	
+	@Test
+	public void testWordContainLetterWordNull() {
+		HangmanGame h = new HangmanGame();
+		String guess = "h";
+		String word = null;
+		assertFalse(h.doesWordContainLetter(guess, word));
+	}
+	
+	@Test
+	public void testWordContainNotLetter() {
+		HangmanGame h = new HangmanGame();
+		String guess = "?";
+		String word = "hello";
+		assertFalse(h.doesWordContainLetter(guess, word));
+	}
 }
