@@ -229,49 +229,49 @@ public class HangmanGameTest {
 	public void testDrawFigureZero() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 0;
-		assertEquals(h.drawFigure(numGuesses), "\n\n\n");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |\n |\n_|_\n");
 	}
 	
 	@Test
 	public void testDrawFigureOne() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 1;
-		assertEquals(h.drawFigure(numGuesses), " O\n\n");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |\n_|_\n");
 	}
 	
 	@Test
 	public void testDrawFigureTwo() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 2;
-		assertEquals(h.drawFigure(numGuesses), " O\n |\n");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |   |\n_|_\n");
 	}
 	
 	@Test
 	public void testDrawFigureThree() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 3;
-		assertEquals(h.drawFigure(numGuesses), " O\n/|\n");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |  /|\n_|_\n");
 	}
 	
 	@Test
 	public void testDrawFigureFour() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 4;
-		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |  /|\\\n_|_\n");
 	}
 	
 	@Test
 	public void testDrawFigureFive() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 5;
-		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n/");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |  /|\\\n_|_ /\n");
 	}
 	
 	@Test
 	public void testDrawFigureSix() {
 		HangmanGame h = new HangmanGame();
 		int numGuesses = 6;
-		assertEquals(h.drawFigure(numGuesses), " O\n/|\\\n/\\");
+		assertEquals(h.drawFigure(numGuesses), " ____\n |   O\n |  /|\\\n_|_ / \\\n");
 	}
 
 	//testing boundary value of 7 (6 should be max possible guesses)

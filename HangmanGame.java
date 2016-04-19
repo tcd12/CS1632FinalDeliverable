@@ -107,6 +107,7 @@ public class HangmanGame {
 	
 	
 	public String wordArrayToPrint(char[] letterArray) {
+		
 		return "error";
 	}
 	
@@ -123,19 +124,19 @@ public class HangmanGame {
 		else {
 			switch (wrongGuesses) {
 				case 0:
-					return "\n\n\n";
+					return " ____\n |\n |\n_|_\n";
 				case 1:
-					return " O\n\n";
+					return " ____\n |   O\n |\n_|_\n"; 
 				case 2:
-					return " O\n |\n";	
+					return " ____\n |   O\n |   |\n_|_\n";	
 				case 3:
-					return " O\n/|\n";
+					return " ____\n |   O\n |  /|\n_|_\n";
 				case 4:
-					return " O\n/|\\\n";
+					return " ____\n |   O\n |  /|\\\n_|_\n";
 				case 5:
-					return " O\n/|\\\n/";
+					return " ____\n |   O\n |  /|\\\n_|_ /\n";
 				case 6:
-					return " O\n/|\\\n/\\";
+					return " ____\n |   O\n |  /|\\\n_|_ / \\\n";
 				default:
 					return "error";
 			}
